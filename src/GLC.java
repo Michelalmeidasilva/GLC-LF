@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-// Revisado por Thiago,Charles,Pedro, Kelvin e Ritiele - 27/09 | 20:00 - 20:45
-// Parcialmente comentado por Pedro - 04/10 - 15:30 - 19:20
 public class GLC {
 
     private ArrayList<Character> variaveis;   // "Variáveis" contêm terminais e variáveis | todas as variáveis e terminais que o usuário digitou
@@ -10,12 +8,15 @@ public class GLC {
     private Character raiz;                   // "Raiz" é equivalente ao "Símbolo terminal", também enviado pelo usuário, o simbolo terminal é a "raiz" da gramática, podendo destrinchar em todos os terminais
     private String[][] regrasMatriz;          // Local que será utilizado para salvar as regras, basicamente uma formatação das regras recebidas pela lista de string em um formato utilizável
 
-	/*
-	O construtor da Classe, é onde será recebida a gramática que o usuário inseriu e feito suas atribuições.
-	Também é o ponto de partida onde será verificado se a expressão foi inserida adequadamente e se ela faz sentido.
-	Se não fizer sentido, o usuário será notificado qual foi o problema econtrado na expressão. Caso contrário, o fluxo do programa terá continuidade.
-	*/
-	
+    /**
+     * Será recebida a gramática que o usuário inseriu e feito suas atribuições.
+     * Também é o ponto de partida onde será verificado se a expressão foi inserida adequadamente e se ela faz sentido.
+     * Se não fizer sentido, o usuário será notificado qual foi o problema econtrado na expressão. Caso contrário, o fluxo do programa terá continuidade.
+     * @param variaveis
+     * @param terminais
+     * @param regras
+     * @param raiz
+     */
     public GLC(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
         this.variaveis = variaveis;             // seta variaveis
         this.terminais = terminais;             // seta terminais
@@ -61,13 +62,14 @@ public class GLC {
 
     }
 
-    //Feito por Thiago e Kelvin - 24/09 | 02:00 - 04:00
-    //{S -> AA, S -> BA, A -> ABA|BA|SA}
-	/*
-	Função onde chama a checagem das regras, para ver se elas fazem sentido.
-	Caso façam, é chamada outra função para que as regras sejam transferidas para uma matriz.
-	Se alguma das funções verificar que há algum problema, padraoRegras() retorna false ao construtor.
-	*/
+    /**
+     * @author Thiago
+     * @author Kelvin
+     * 	Função onde chama a checagem das regras, para ver se elas fazem sentido.
+     * 	Caso façam, é chamada outra função para que as regras sejam transferidas para uma matriz.
+     * 	Se alguma das funções verificar que há algum problema, padraoRegras() retorna false ao construtor.
+     *  @return
+     */
     private boolean padraoRegras() {       // Padrão esperado para as regras inseridas
         boolean test = true;
         ArrayList<String> lista = new ArrayList<String>();
@@ -92,10 +94,13 @@ public class GLC {
         return true;
     }
 
-    // Refatorado por Kelvin 24/09 | 06:00 - 06:20
-    // Lógica por Thiago
-	//Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos, também há uma pequena formatação das regras
-    private boolean checkRegrasSimb() {
+/**
+ * @author Thiago, construção do metodo
+ * @author Kelvin, refatoração
+ * Checa se as regras digitadas fazem sentido para os terminais/simbolos inseridos, também há uma pequena formatação das regras
+ * @return
+ */
+  private boolean checkRegrasSimb() {
         for (String regra : regras) {
             regra = regra.replaceAll(" ", "").replaceAll("->", "").replaceAll("\\|", "");
             for (int x = 0; x < regra.length(); x++) {                
@@ -107,10 +112,12 @@ public class GLC {
         return true;
     }
 
-    // Refatorado por Kelvin 24/09 | 06:00 - 06:20
-    // Lógica por Thiago
-	// Função chamada em PadraoRegras(), para transformar a lista de regras, já formatada, em uma matriz.
-	//Só adiciona à regrasMatriz regras que não façam referência a si mesma, como por exemplo C->C
+    /**
+     * @author Thiago, construção e logica
+     * @author Kelvin, refatoracao
+     * Função chamada em PadraoRegras(), para transformar a lista de regras, já formatada, em uma matriz.
+     * Só adiciona à regrasMatriz regras que não façam referência a si mesma, como por exemplo C->C
+     */
     private void matrizAdd() { 
         int contaRegras = 0;
         for (String regra : regras) {
@@ -122,8 +129,12 @@ public class GLC {
         }
     }
 
-    // Feito por Thiago e Kelvin 26/09 | 21:30 - 22:40
-    // Função que checa se o simbolo inicial digitado está correto para as regras inseridas
+    /**
+     * Função que checa se o simbolo inicial digitado está correto para as regras inseridas
+     * @author Thiago
+     * @author Kelvin
+     * @return
+     */
     private boolean raizCheck() {
         ArrayList<Integer> confirma = new ArrayList<Integer>();
         int x = 0, y = 0;
@@ -155,7 +166,11 @@ public class GLC {
         }
     }
 
-	// Função que mostra o processo de derivação até a expressão/string digitada pelo usuário.
+    /**
+     * Mostra o processo de derivação até a expressão/string digitada pelo usuário.
+     * @param entrada
+     * @return
+     */
     public ArrayList derivar(String entrada) {
         ArrayList<Integer> variacoes = new ArrayList<Integer>();
         ArrayList<String> retorno = new ArrayList<String>();
@@ -222,8 +237,13 @@ public class GLC {
         return null;
     }
 
-    // Recebe a "sílaba" checada, e o "inicioBusca" estabelece a primeira regra a ser checada, utilizando o exemplo anterior, caso E - > a = inicioBusca0, o próximo valor para 'a', deve ser I -> a = inicioBusca6, considerando que as regras estão em uma matriz
-    private int buscaRegra(String parte, int inicioBusca) {  
+    /**
+     * Recebe a "sílaba" checada, e o "inicioBusca" estabelece a primeira regra a ser checada, utilizando o exemplo anterior, caso E - > a = inicioBusca0, o próximo valor para 'a', deve ser I -> a = inicioBusca6, considerando que as regras estão em uma matriz
+     * @param parte
+     * @param inicioBusca
+     * @return
+     */
+    private int buscaRegra(String parte, int inicioBusca) {
         for (int x = inicioBusca; x < this.regrasMatriz.length; x++) {
             if (parte.equals(regrasMatriz[x][1])) {
                 return x;
