@@ -17,12 +17,25 @@ public class GLC {
    * @param regras
    * @param raiz
    */
-  public GLC(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) throws Exception {
+  public GLC(ArrayList<Character> variaveis, ArrayList<Character> terminais, ArrayList<String> regras, char raiz) {
     this.variaveis = variaveis;             // seta variaveis
     this.terminais = terminais;             // seta terminais
     this.regras = regras;                   // seta regras
     this.raiz = raiz;                       // seta raiz
-    boolean check = true;                   // variável auxiliar de teste
+    try {
+      validarConfiguracaoEntrada();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Metodo para validar entrada do construtor
+   * @return
+   */
+  public void validarConfiguracaoEntrada() throws Exception {
+    boolean check = true;
+    // variável auxiliar de teste
     for (Character temp : terminais) {      // Vai checar se os terminais estão contidos nas variáveis
       if (!variaveis.contains(temp)) {
         check = false;
@@ -33,33 +46,23 @@ public class GLC {
         variaveis.remove(x);
       }
     }
-    if (!check) {   // Caso, 'check' seja falso, terminais não estavam contidos nas variáveis.
-      System.out.println("Os terminais não estão nas variáveis");   // Terminais contiverem o simbolo inicial ou as regras colocadas não façam sentido para os terminais e variáveis fornecidas, então a entrada é recusada
-      return;
-    }
 
-    if (!variaveis.contains(raiz)) {
-      System.out.println("Raiz não está presente entre as variáveis");
-      return;
-    }
+    if (!check)    // Caso, 'check' seja falso, terminais não estavam contidos nas variáveis.
+      throw new Exception("Os terminais não estão nas variáveis");
 
-    if (terminais.contains(raiz)) {
-      System.out.println("Raiz usada é um dos terminais");
-      return;
-    }
+    if (!variaveis.contains(raiz))
+      throw new Exception("Raiz não está presente entre as variáveis");
 
-    if (!padraoRegras()) {
-      System.out.println("Regras estão mal formatadas");
-      return;
-    }
+    if (terminais.contains(raiz))
+      throw new Exception("Raiz usada é um dos terminais");
 
-    if (!raizCheck()) {
-      System.out.println("Raiz não consegue chegar a todos as variáveis");
-      return;
-    }
+    if (!padraoRegras())
+      throw new Exception("Regras estão mal formatadas");
+
+    if (!raizCheck())
+      throw new Exception("Raiz não consegue chegar a todos as variáveis");
 
     System.out.println("Checagem completa");
-
   }
 
   /**
