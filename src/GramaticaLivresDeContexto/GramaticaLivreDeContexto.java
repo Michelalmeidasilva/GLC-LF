@@ -30,7 +30,10 @@ public class GramaticaLivreDeContexto {
     regras = new Regras(matrizregrasinicial);
     árvore = new Árvore(símboloraíz);
 
-    árvore.preencherÁrvore(10, 0, alfabeto, regras, árvore, árvore.raíz);
+    árvore.preencherÁrvore(10,  alfabeto, regras, árvore, árvore.raíz);
+
+    System.out.println("\nImpressao de palavras geradas");
+    árvore.palavrasGeradas.forEach(palavra -> System.out.println(palavra) );
   }
 
 }
