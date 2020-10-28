@@ -24,23 +24,7 @@ public class Árvore {
         for(int x = 0; x < novo.data.length; x++) {
                 for(int y = 0; y < alfabeto.nãoterminais.length; y++) {
                     if(novo.data[x].contains(alfabeto.nãoterminais[y])) {
-                        if(galhos == regras.matrizregras.length){
-                            /**
-                             * implementar logica de inserir em cada nivel
-                             */
-                            System.out.println("Tamanho do galho :"+ galhos);
-                            for (int galho = 0; galho<  galhos; galho++){
-
-                                System.out.println(novo.filhos.get(galho).dataToString());
-                            }
-                            nivel++;
-                            return raíz;
-//                            galhos = 0;
-
-                            /**
-                             *   System.out.println("Final do preenchimento pelas regras");
-                             */
-                        }
+                        trocarDeNivel();
                         while( this.galhos < regras.matrizregras.length ) {
                             if(novo.data[x].contains(regras.matrizregras[this.galhos][0])) {
                                 Nódulo auxiliar = new Nódulo();
@@ -53,6 +37,26 @@ public class Árvore {
                 }
             }
         return raíz;
+    }
+
+    private Nódulo trocarDeNivel() {
+//        if(galhos == regras.matrizregras.length){
+//            /**
+//             * implementar logica de inserir em cada nivel
+//             */
+//            System.out.println("Tamanho do galho :"+ galhos);
+//            for (int galho = 0; galho<  galhos; galho++){
+//
+//                System.out.println(novo.filhos.get(galho).dataToString());
+//            }
+//            nivel++;
+////                            galhos = 0;
+//
+//            /**
+//             *   System.out.println("Final do preenchimento pelas regras");
+//             */
+        return this.raíz;
+//        }
     }
 
 
