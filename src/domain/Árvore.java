@@ -62,32 +62,54 @@ public class Árvore {
 
     private Nódulo preencherNodulo(String regraADireita, Alfabeto alfabeto, Nódulo auxiliar, Nódulo pai, int i) {
         String naoTerminais = alfabeto.naoTerminaisToString();
-        if (regraADireita.contains(naoTerminais) == false){     /// Nó folha
-            this.palavrasGeradas.add(regraADireita);
+        /**
+         *  Se a condição de nao haver terminais for verdadeira então é uma palavra finalizada já
+         *  caso contrário é um nó com terminal
+         */
+        if (regraADireita.contains(naoTerminais) == false){
+            this.palavrasGeradas.add(regraADireita);    
+            talvezImplementarParaInsercaoDeIrmaosMesmoSeSóHaverNaoterminais();
             auxiliar.pai = pai;
             auxiliar.filhos = null;
             auxiliar.data = regras.matrizregras[this.galhos][1].split("");
             auxiliar.pai.filhos.add(auxiliar);
             return auxiliar;
-        } else {//contem terminais //desce 1 nivel
+        } else {
+            /**
+             * condição necessária para nao sobrescrever o nó pai
+             */
             if(auxiliar.pai == null ){
                 auxiliar.data = regras.matrizregras[this.galhos][1].split("");
                 auxiliar.pai = pai;
                 pai.filhos.add(auxiliar);
             }
+
             /**
              * adiciona irmaos se tiver
              * percorrendo o lado da regra direita recursivamente
              */
+            implementarCondicaoParaPercorrerTerminaisECriarFilhos();
             if (  i < auxiliar.data.length) {
                 Nódulo irmao = new Nódulo();
                 irmao.pai = auxiliar.pai;
                 irmao.data = auxiliar.data[i].split("");
-                //adiciona o nó irmao baseado no galho que está
-                pai.filhos.get(this.galhos).Irmãos.add(irmao);
+                pai.filhos.get(this.galhos).Irmãos.add(irmao);                //adiciona o nó irmao baseado no galho que está
                 preencherNodulo( regraADireita,  alfabeto,  auxiliar,  pai,  i  = i +1);
             }
             return auxiliar;
         }
+    }
+
+    private void talvezImplementarParaInsercaoDeIrmaosMesmoSeSóHaverNaoterminais() {
+        /**
+         * Se for necessário implementar Função para verificar se mesmo só com nao terminais no nodulo
+         * inserir esses irmaos
+         */
+    }
+
+    private void implementarCondicaoParaPercorrerTerminaisECriarFilhos() {
+        /**
+         * para cada novo terminal descer um nivel
+         */
     }
 }
