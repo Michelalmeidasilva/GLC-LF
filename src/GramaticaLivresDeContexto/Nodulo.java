@@ -9,4 +9,12 @@ public class Nodulo {
     Nodulo irmãoesquerdo;
     Nodulo irmãodireito;
     List<Nodulo> filhos;
+
+    public String getData() {
+        String dataString = "";
+        for (int i = 0; i <data.length ; i++) {
+            dataString = dataString + ""+data[i];
+        }
+        return dataString;
+    }
 }

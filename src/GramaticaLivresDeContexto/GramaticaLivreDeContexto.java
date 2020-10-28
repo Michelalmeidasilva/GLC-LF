@@ -28,9 +28,9 @@ public class GramaticaLivreDeContexto {
 
     alfabeto = new Alfabeto(símboloraíz, símbolosterminais, símbolosnãoterminais);
     regras = new Regras(matrizregrasinicial);
-    árvore = new Árvore(símboloraíz);
+    árvore = new Árvore(símboloraíz, regras, alfabeto);
 
-    árvore.preencherÁrvore(10,  alfabeto, regras, árvore, árvore.raíz);
+    árvore.preencherÁrvore(10,  árvore, árvore.raíz);
 
     System.out.println("\nImpressao de palavras geradas");
     árvore.palavrasGeradas.forEach(palavra -> System.out.println(palavra) );
