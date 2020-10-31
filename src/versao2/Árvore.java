@@ -4,13 +4,14 @@ package versao2;
 import java.util.*;
 
 public class Árvore {
-  TreeSet<String> palavrasGeradas = new TreeSet<String>();
+  Nódulo noduloAuxiliar;
+  TreeSet<String> auxiliar = new TreeSet<String>();
   Nódulo raiz;
   List<Nódulo> fila = new ArrayList<>();
   int nivel = 1;
   int galhoPreenchido = 0;
 
-  int nrPalavrasGeradas;
+  int nrauxiliar;
 
   public Árvore(String datarecebida) {
     Nódulo raíz = new Nódulo(datarecebida.split(""), null, 0);
@@ -18,22 +19,32 @@ public class Árvore {
     fila.add(raíz);
   }
 
-  public void preencherÁrvore(Alfabeto alfabeto, Regras regras) {
-    while (nrPalavrasGeradas < 100) {
-      Nódulo pai = fila.remove(0);
-      for (int x = 0; x < pai.data.length; x++) {
-        for (int y = 0; y < alfabeto.nãoterminais.length; y++) {
-          if (pai.data[x].contains(alfabeto.nãoterminais[y])) {
-            for (int z = 0; z < regras.matrizregras.length; z++) {
-              nrPalavrasGeradas++;
-              if (pai.data[x].contains(regras.matrizregras[z][0])) {
-                Nódulo novo = new Nódulo(regras.matrizregras[z][1].split(""), pai, nivel);
-                pai.filhos.add(novo);
-                if (novo != raiz) {
-                  galhoPreenchido++;
-                }
-                fila.add(novo);
+
+  /**
+   * pra cada nivel eu tenho um somatorio de todos os filhos
+   * primeiro tenho que transformar todos a Aa
+   *
+   * @param alfabeto
+   * @param regras
+   */
+
+
+  public Nódulo preencherÁrvore(Alfabeto alfabeto, Regras regras, Nódulo pai) {
+    if (nrauxiliar > 100) return pai;
+
+    for (int x = 0; x < pai.data.length; x++) {
+      for (int y = 0; y < alfabeto.nãoterminais.length; y++) {
+        if (pai.data[x].contains(alfabeto.nãoterminais[y])) {
+          for (int z = 0; z < regras.matrizregras.length; z++) {
+            nrauxiliar++;
+            if (pai.data[x].contains(regras.matrizregras[z][0])) {
+              Nódulo novo = new Nódulo(regras.matrizregras[z][1].split(""), pai, nivel);
+              pai.filhos.add(novo);
+              if (novo != raiz) {
+                galhoPreenchido++;
               }
+              noduloAuxiliar = novo;
+//                  fila.add(novo);
               if (galhoPreenchido >= regras.matrizregras.length) {
                 galhoPreenchido = 0;
                 nivel++;
@@ -43,18 +54,27 @@ public class Árvore {
         }
       }
     }
-    System.out.println(nrPalavrasGeradas);
-  }
+    pai = preencherÁrvore(alfabeto, regras, noduloAuxiliar);
+    return pai;
+//    nivel = 0;
+//    ordenarNiveis(raiz, 0);
+}
 
-  public void ordenarNiveis(Nódulo rootNode, int count) {
-    count++;
+  int test = 0;
+  public int ordenarNiveis(Nódulo rootNode, int count) {
+
     if (rootNode.filhos.size() != 0) {
+      System.out.println("Acabo os filhos de um");
       for (Nódulo ch : rootNode.filhos) {
         ch.nivel = count;
         fila.add(ch);
-        ordenarNiveis(ch, count);
+        count = ordenarNiveis(ch, count);
       }
+
     }
+    test++;
+    System.out.println("test:" + test  +  "nivel" + count);
+    return count + 1;
   }
 
 

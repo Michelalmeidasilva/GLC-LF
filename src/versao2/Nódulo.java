@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Nódulo {
     String[] data;
+    String value;
     int nivel = 0;
     Nódulo pai;
     ArrayList<Nódulo> filhos;

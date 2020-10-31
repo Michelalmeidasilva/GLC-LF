@@ -32,13 +32,13 @@ public class GramáticaLivreDeContexto {
 
         gerarPalavras(quantidade);
         raíz.imprimirÁrvore(alfabeto);
-        raíz.palavrasGeradas.forEach((palavra)->{
+        raíz.auxiliar.forEach((palavra)->{
             System.out.println(palavra);
         });
 //
-//        for (int i = 0; i < palavrasGeradas.length; i++) {
-//            for (int j = 0; j < palavrasGeradas[i].length; j++) {
-//                System.out.print(palavrasGeradas[i][j]+ " ");
+//        for (int i = 0; i < auxiliar.length; i++) {
+//            for (int j = 0; j < auxiliar[i].length; j++) {
+//                System.out.print(auxiliar[i][j]+ " ");
 //            }
 //            System.out.println();
 //        }
@@ -46,6 +46,6 @@ public class GramáticaLivreDeContexto {
     }
 
     static public void gerarPalavras(int quantidade) {
-        raíz.preencherÁrvore( alfabeto, regras);
+        raíz.preencherÁrvore( alfabeto, regras, raíz.raiz);
     }
 }
