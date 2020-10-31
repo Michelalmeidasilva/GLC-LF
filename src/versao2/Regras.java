@@ -1,5 +1,5 @@
 
-package domain;
+package versao2;
 
 public class Regras {
     String[][] matrizregras;
