@@ -1,0 +1,57 @@
+{
+  "quantidade": 20,
+  "simboloInicial": "A",
+  "alfabeto": {
+    "terminais": [
+      "a",
+      "b",
+      "c"
+    ],
+    "naoTerminais": [
+      "A"
+    ]
+  },
+  "palavrasGeradas": {
+    "1": "a",
+    "2": "b",
+    "3": "c",
+    "4": "a a a",
+    "5": "a b a",
+    "6": "a c a",
+    "7": "a a a a a",
+    "8": "a a b a a",
+    "9": "a a c a a",
+    "10": "a a a a a a a",
+    "11": "a a a b a a a",
+    "12": "a a a c a a a",
+    "13": "a a a a a a a a a",
+    "14": "a a a a b a a a a",
+    "15": "a a a a c a a a a",
+    "16": "a a a a a a a a a a a",
+    "17": "a a a a a b a a a a a",
+    "18": "a a a a a c a a a a a",
+    "19": "a a a a a a a a a a a a a",
+    "20": "a a a a a a b a a a a a a"
+  },
+  "regras": {
+    "matrizregras": [
+      [
+        "A",
+        "a"
+      ],
+      [
+        "A",
+        "b"
+      ],
+      [
+        "A",
+        "aAa"
+      ],
+      [
+        "A",
+        "c"
+      ]
+    ]
+  },
+  "gramaticaValida": true
+}
