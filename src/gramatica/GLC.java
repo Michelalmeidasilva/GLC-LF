@@ -16,6 +16,7 @@ public final class GLC {
     private boolean gramaticaValida = false;
 
     /**
+     * @Author Yann Silva
      * Construtor
      * @param simboloInicial
      * @param alfabeto
@@ -28,7 +29,8 @@ public final class GLC {
         validarEntrada();
     }
 
-    /**
+   /**
+     * @Author Yann Silva
      * Geração das palavras que estão na fila
      * e transportação para a matriz de _palavras
      * já com palavras só terminais
@@ -62,7 +64,8 @@ public final class GLC {
         }
     }
 
-    /**
+   /**
+     * @Author Yann Silva
      * Percorre as regras e relaciona o numero de nao terminais
      * com a quantidade de palavras a serem geradas
      * @param alfabeto
@@ -91,7 +94,8 @@ public final class GLC {
     }
 
 
-    /**
+   /**
+     * @Author Yann Silva
      * Metodo de gerar palavras, só insere se o numero
      * de palavras a serem geradas for maior que 0
      * @param quantidade
@@ -116,7 +120,8 @@ public final class GLC {
         return true;
     }
 
-    /**
+   /**
+     * @Author Michel Silva
      * Metodo Overload de gerarPalavras
      * é chamado quando for preciso utilizar o arquivo
      */
@@ -125,7 +130,8 @@ public final class GLC {
     }
 
 
-    /**
+   /**
+     * @Author Michel Silva
      * Validação de erros para um alfabeto valido
      * e para simbolo inicial valido
      */
