@@ -5,6 +5,9 @@ import main.gramatica.GLC;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * @author Michel Silva
+*/
 public class Arquivo {
 
   /**
