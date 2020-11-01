@@ -8,13 +8,12 @@ public class Nódulo {
     String value;
     int nivel = 0;
     Nódulo pai;
-    ArrayList<Nódulo> filhos;
+    ArrayList<Nódulo> filhos = new ArrayList<>();
     
-    public Nódulo(String[] datarecebida, Nódulo pairecebido , int nivel) {
+    public Nódulo(String[] datarecebida, Nódulo pairecebido , int nivel ) {
         this.data = datarecebida;
         this.pai = pairecebido;
         this.nivel = nivel;
-        this.filhos = new ArrayList<>();
     }
 
     public Nódulo() {

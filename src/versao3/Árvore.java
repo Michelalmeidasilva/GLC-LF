@@ -1,5 +1,5 @@
 
-package gramáticalivredecontexto;
+package versao3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,6 @@ public class Árvore {
         fila.add(raíz);
         for(int x = 0; x < fila.size(); x++){
             Nódulo auxiliar = fila.get(x);
-
             for(int y = 0; y < auxiliar.data.length; y++) {
                 for(int z = 0; z < alfabeto.nãoterminais.length; z++) {
                     if(auxiliar.data[y].contains(alfabeto.nãoterminais[z])) {
@@ -30,22 +29,10 @@ public class Árvore {
             }
         }
 
-            
         
         while(!fila.isEmpty()) {
             Nódulo auxiliar = fila.remove(0);
-            
-            /*for(int x = 0; x < auxiliar.data.length; x++) {
-                
-                for(int y = 0; y < alfabeto.nãoterminais.length; y++) {
-                    if(auxiliar.data[x].contains(alfabeto.nãoterminais[y])) {
-                        fila.addAll(auxiliar.filhos);
-                    }
-                }
-            }*/
-            
             for(int x = 0; x < auxiliar.data.length; x++) {
-                
                 for(int y = 0; y < alfabeto.terminais.length; y++) {
                     if(auxiliar.data[x].contains(alfabeto.terminais[y]) && auxiliar.data.length == 1) {
                         String[] meio = auxiliar.data;
@@ -80,9 +67,7 @@ public class Árvore {
         
         while(!fila.isEmpty() && geradas < quantidade) {
             Nódulo pai = fila.remove(0);
-
             for(int x = 0; x < pai.data.length; x++) {
-                
                 for(int y = 0; y < alfabeto.terminais.length; y++) {
                     if(pai.data[x].contains(alfabeto.terminais[y])) {
                         if(pai.data.length == 1) {
@@ -90,12 +75,12 @@ public class Árvore {
                         }
                     }
                 }
-                
 
-                for(int y = 0; y < alfabeto.nãoterminais.length; y++) {
-                    if(pai.data[x].contains(alfabeto.nãoterminais[y])) {
-                        for(int z = 0; z < regras.matrizregras.length; z++) {
-                            if(pai.data[x].contains(regras.matrizregras[z][0])) {
+
+                for(int y = 0; y < alfabeto.nãoterminais.length; y++) {//2
+                    if(pai.data[x].contains(alfabeto.nãoterminais[y])) {//3
+                        for(int z = 0; z < regras.matrizregras.length; z++) {//4
+                            if(pai.data[x].contains(regras.matrizregras[z][0])) {//5
                                 Nódulo novo = new Nódulo(regras.matrizregras[z][1].split(""), pai);
                                 pai.filhos.add(novo);
                                 fila.add(novo);

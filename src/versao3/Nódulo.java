@@ -1,5 +1,5 @@
 
-package gramáticalivredecontexto;
+package versao3;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

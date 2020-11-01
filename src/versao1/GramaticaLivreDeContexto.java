@@ -1,5 +1,6 @@
 package versao1;
 
+import com.google.gson.annotations.Expose;
 import versao1.Alfabeto;
 import versao1.Regras;
 
@@ -9,10 +10,17 @@ import java.util.Random;
 import java.util.TreeSet;
 
 public class GramaticaLivreDeContexto {
-    String matriz [][];
-    private Alfabeto alfabeto;
+
+    protected String matriz [][];
+
     private String raiz ;
+
+    private Alfabeto alfabeto;
+
+    int quantidadeDePalavrasGeradas;
+
     private TreeSet<String> palavrasGeradas = new TreeSet<String>();
+
     private List<Regras> regras;
 
     public  GramaticaLivreDeContexto(String simbolosTerminais, String simbolosNaoTerminais, String[][] matriz, String raiz){
@@ -22,23 +30,27 @@ public class GramaticaLivreDeContexto {
     }
 
     public TreeSet<String> gerarPalavras(int quantidade) {
+        this.quantidadeDePalavrasGeradas = quantidade;
         setarRegras();
-
+        int x = 0;
         String palavra = this.raiz;
-        String palavraVetor [] = palavra.split("");
-
-        for (int i = 0; i < palavraVetor.length; i++) {
-            for (int j = 0; j < alfabeto.naoTerminais.length; j++) {
-                if(palavraVetor[i].contains(alfabeto.naoTerminais[j])){
-                    int pos = randomRegra(palavraVetor[i]);
-                    String substituir = regras.get(j).regraDireita.get(pos);
-                    palavraVetor[i] = substituir;
+        String naoTerminaisStr = alfabeto.getNãoTerminais();
+        while(x < 5) {
+            String palavraVetor [] = palavra.split("");
+            for (int i = 0; i < palavraVetor.length; i++) {
+                for (int j = 0; j < alfabeto.naoTerminais.length; j++) {
+                    if (palavraVetor[i].contains(alfabeto.naoTerminais[j])) {
+                        int pos = randomRegra(palavraVetor[i]);
+                        String substituir = regras.get(j).regraDireita.get(pos);
+                        palavraVetor[i] = substituir;
+                    }
                 }
             }
+            String palavraString = arrayToString(palavraVetor);
+            palavra = palavra +  palavraString;
+        x++;
         }
-
-        String palavraString = arrayToString(palavraVetor);
-        palavrasGeradas.add(palavraString);
+        palavrasGeradas.add(palavra);
         return palavrasGeradas;
     }
 

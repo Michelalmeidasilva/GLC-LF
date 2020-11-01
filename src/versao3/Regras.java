@@ -1,5 +1,5 @@
 
-package gramáticalivredecontexto;
+package versao3;
 
 public class Regras {
     String[][] matrizregras;

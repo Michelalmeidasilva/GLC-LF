@@ -1,5 +1,9 @@
 package versao1;
 
+import arquivo.JsonFormatter;
+
+import java.util.Scanner;
+
 public class App {
   public static void main(String[] args) {
 
@@ -39,7 +43,33 @@ public class App {
     matrizRegras[9][0] = "I";
     matrizRegras[9][1] = "Ib";
 
+
     GramaticaLivreDeContexto GLC = new GramaticaLivreDeContexto(simbolosTerminais, simbolosNaoTerminais,  matrizRegras, simboloRaiz);
     GLC.gerarPalavras(10);
+    criarArquivo(GLC);
+
+  }
+
+  private static void criarArquivo(GramaticaLivreDeContexto glc) {
+    Scanner ler = new Scanner(System.in);
+    String pergunta;
+    String s;
+    System.out.printf("Informe o nome do arquivo a ser gerado:(para sair digite X)\n");
+    s = ler.next(); //
+    if(s.toLowerCase().equals("X")) return;
+    System.out.println("Tem certeza que deseja colocar o nome do arquivo de: \""   + s + ".json\" ?(S/N)" );
+    pergunta = ler.next();
+    if(pergunta.toLowerCase().equals("s") ){
+      System.out.println("Arquivo será criado no diretório atual");
+
+      JsonFormatter json = new JsonFormatter();
+      json.writeObject(glc, s);
+      if(pergunta.toLowerCase().equals("X")) return;
+
+    } else if(pergunta.toLowerCase().equals("n")){
+      System.out.println("Entendi, redigite para um novo nome(para sair digite X)\"");
+      criarArquivo(glc);
+    }
+    return;
   }
 }

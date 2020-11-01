@@ -115,6 +115,8 @@ public class GLC {
     return true;
   }
 
+
+
   /**
    * @author Thiago, construção e logica
    * @author Kelvin, refatoracao
@@ -124,13 +126,15 @@ public class GLC {
   private void matrizAdd() {
     int contaRegras = 0;
     for (String regra : regras) {
-      if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {
+      if (regra.trim().substring(0, 1) != regra.trim().substring(5)) {    // primeiro da esquerda variavel nao terminal
         regrasMatriz[contaRegras][0] = regra.trim().substring(0, 1);
-        regrasMatriz[contaRegras][1] = regra.trim().substring(5).replaceAll(" ", "");
+        regrasMatriz[contaRegras][1] = regra.trim().substring(5).replaceAll(" ", "");     // tirando os espaços
         contaRegras++;
       }
     }
   }
+
+
 
   /**
    * Função que checa se o simbolo inicial digitado está correto para as regras inseridas
@@ -168,7 +172,102 @@ public class GLC {
       return true;
     }
   }
+//    raiz E
+//        E
+//    regras.add("E -> I|E*E");     matriz[0]
+//    regras.add("E -> E + E");
+//    regras.add("E -> (E)");
+//    regras.add("E -> a");
+//    regras.add("E -> c");
+//    regras.add("I -> a");
+//    regras.add("I -> b");
+//    regras.add("I -> Ia");
+//    regras.add("I -> Ib");
 
+  /**
+   * Mostra o processo de derivação até a expressão/string digitada pelo usuário.
+   * @param entrada
+   * @return
+   */
+  public ArrayList gerar(String entrada) {
+    ArrayList<Integer> variacoes = new ArrayList<Integer>();
+    ArrayList<String> retorno = new ArrayList<String>();
+    retorno.add(entrada);
+    String entradaLocal = entrada;
+    boolean skip = false;
+    StringBuilder builder = new StringBuilder(entradaLocal);
+    int nivel = 0, inicio = 0, fim = inicio + 1, regra = 0, novaRegra = 0;
+
+    while (nivel >= 0) {  //Testando todas as variações possíveis pra derivar, até encontrar o caminho que
+                          // resulte ao símbolo inicial, variável "Raiz" descrita, caso saia do While, então não existe derivação possível
+      for (; inicio < entradaLocal.length(); inicio++) {
+        for (; fim <= entradaLocal.length(); fim++) {
+
+            regra = buscaRegra(entradaLocal.substring(inicio, fim), novaRegra);
+            if (regra != -1) {                      // Esse if entra caso achar uma regra que possa aplicar
+              variacoes.add(inicio);
+              variacoes.add(fim);
+              variacoes.add(regra);
+              nivel++;
+              builder.replace(inicio, fim, regrasMatriz[regra][0]);
+              entradaLocal = builder.toString();
+              retorno.add(entradaLocal);
+              inicio = 0;
+              fim = 0;
+            }
+
+        }
+        fim = inicio + 1;
+      }
+      if (entradaLocal.equals(raiz.toString())) {           // Encontrou uma derivação completa e faz o retorno do caminho encontrado para ela
+        for (String linha : retorno) {
+          System.out.println(linha);
+        }
+        return retorno;
+      }
+      if (retorno.size() > 1) {                            // Caso encontre um "beco sem saída" retorna para o nível anterior e tenta outra variação
+        nivel--;
+        retorno.remove(retorno.size() - 1);
+        entradaLocal = retorno.get(retorno.size() - 1);
+        fim = variacoes.remove(variacoes.size() - 2);
+        inicio = variacoes.remove(variacoes.size() - 2);
+        if (buscaRegra(entradaLocal.substring(inicio,fim), variacoes.get(variacoes.size() - 1) + 1) == -1) {   // Checa se a mesma "Sílaba" tem outra regra aplicável para ela, ex: "E -> a", "I -> a", ou seja 'a' possuí duas regras do qual pode derivar
+          skip = true;
+          novaRegra = 0;
+        } else { //Tem mais conjuntos cuja regra pode ser convertida, essa parte do código é que vai testar os outros caminhos dessa silaba
+          novaRegra = variacoes.get(variacoes.size() - 1) + 1;
+        }
+        variacoes.remove(variacoes.size() - 1);
+        builder = new StringBuilder(entradaLocal);
+      } else {
+        nivel--;
+      }
+    }
+    System.out.println("Não existe derivação correta para a palavra");
+    return null;
+  }
+
+  void gerarPalavras(int tamanho, String[][] matriz){
+
+  }
+
+  /**
+   * Recebe a "sílaba" checada, e o "inicioBusca" estabelece a primeira regra a ser
+   * checada, utilizando o exemplo anterior, caso E - > a = inicioBusca0,
+   * o próximo valor para 'a', deve ser I -> a = inicioBusca6, considerando que as regras estão em uma matriz
+   *
+   * @param parte
+   * @param inicioBusca
+   * @return
+   */
+  private int buscaRegra(String parte, int inicioBusca) {
+    for (int x = inicioBusca; x < this.regrasMatriz.length; x++) {
+      if (parte.equals(regrasMatriz[x][1])) {
+        return x;
+      }
+    }
+    return -1;        //nenhuma regra
+  }
   /**
    * Mostra o processo de derivação até a expressão/string digitada pelo usuário.
    * @param entrada
@@ -204,7 +303,6 @@ public class GLC {
               retorno.add(entradaLocal);
               inicio = 0;
               fim = 0;
-
             }
           }
         }
@@ -233,27 +331,12 @@ public class GLC {
       } else {
         nivel--;
       }
-
     }
     System.out.println("Não existe derivação correta para a palavra");
-
     return null;
   }
 
-  /**
-   * Recebe a "sílaba" checada, e o "inicioBusca" estabelece a primeira regra a ser checada, utilizando o exemplo anterior, caso E - > a = inicioBusca0, o próximo valor para 'a', deve ser I -> a = inicioBusca6, considerando que as regras estão em uma matriz
-   * @param parte
-   * @param inicioBusca
-   * @return
-   */
-  private int buscaRegra(String parte, int inicioBusca) {
-    for (int x = inicioBusca; x < this.regrasMatriz.length; x++) {
-      if (parte.equals(regrasMatriz[x][1])) {
-        return x;
-      }
-    }
-    return -1;
-  }
+
 
   // Kelvin Clovis (Setters e Getters) - 03/10  | 14:50-15:00
   public ArrayList<Character> getVariaveis() {

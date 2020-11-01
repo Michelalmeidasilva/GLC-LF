@@ -1,7 +1,7 @@
-
 import java.util.ArrayList;
 
 public class LinguagensFormaisTemp {
+
 
   public static void main(String[] args) throws Exception {
     ArrayList<Character> variaveis = new ArrayList();
@@ -36,21 +36,11 @@ public class LinguagensFormaisTemp {
     regras.add("I -> Ia");
     regras.add("I -> Ib");
 
-
-    /*char raiz = 'S';
-    variaveis.add('S');
-    variaveis.add('A');
-    variaveis.add('a');
-    variaveis.add('b');
-    terminais.add('a');
-    terminais.add('b');
-    regras.add("S -> AA");
-    regras.add("A -> AAA");
-    regras.add("A -> bA");
-    regras.add("A -> Ab");
-    regras.add("A -> a");*/
+    System.out.println("teste");
     GLC teste = new GLC(variaveis,terminais,regras,raiz);
-    teste.derivar("aa*a+c");
+    System.out.println(teste.derivar("aaaaa"));
+    System.out.println("teste");
+
     // E -> E*E | E*E - > I*E+E | I*E+E - > Ia*a+c | Ia*a+c - > aa*a+c
     System.out.println(teste.toString());
   }
