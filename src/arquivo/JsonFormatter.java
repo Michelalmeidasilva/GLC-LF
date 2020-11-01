@@ -1,12 +1,9 @@
 package arquivo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import versao1.GramaticaLivreDeContexto;
+import domain.GramaticaLivreDeContexto;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 
 public class JsonFormatter {
   GramaticaLivreDeContexto glc;
@@ -32,19 +29,23 @@ public class JsonFormatter {
   }
 
 
-  public GramaticaLivreDeContexto readJson() {
-    String userDirectory =  System.getProperty("user.dir") + "/";
-    String nomeDoArquivo = "glc.json";
-    Gson gson = new Gson();
-    System.out.println(System.getProperty("user.dir"));
-    try (Reader reader = new FileReader(userDirectory + nomeDoArquivo )) {
-      // Convert JSON File to Java Object
-      GramaticaLivreDeContexto glc = gson.fromJson(reader, GramaticaLivreDeContexto.class);
-      return glc;
-    } catch (IOException e) {
-      e.printStackTrace();
+  public GramaticaLivreDeContexto readJson(String nome, boolean diretorioAtual) throws FileNotFoundException {
+    String userDirectory ;
+    String nomeDoArquivo ;
+    String pathAbsoluto;
+    if(diretorioAtual){
+     userDirectory =  System.getProperty("user.dir") + "/";
+     nomeDoArquivo = nome + ".json";
+     pathAbsoluto = userDirectory + nomeDoArquivo;
+    } else {
+      pathAbsoluto = nome;
     }
-    return null;
+    System.out.println("Leitura do arquivo" + pathAbsoluto);
+    Gson gson = new Gson();
+    Reader reader = new FileReader(pathAbsoluto );
+    GramaticaLivreDeContexto glc = gson.fromJson(reader, GramaticaLivreDeContexto.class);
+    return glc;
+
   }
 
 }

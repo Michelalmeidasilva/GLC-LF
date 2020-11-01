@@ -1,5 +1,5 @@
 
-package versao1;
+package domain;
 
 public class Alfabeto {
     String[] terminais;
