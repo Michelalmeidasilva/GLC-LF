@@ -1,18 +1,18 @@
 
-package versao2;
+package versao1;
 
 public class Alfabeto {
     String[] terminais;
-    String[] nãoterminais;
+    String[] naoTerminais;
     
     public Alfabeto(String símbolosterminaisrecebidos, String símbolosnãoterminaisrecebidos) {
         terminais = símbolosterminaisrecebidos.split("");
-        nãoterminais = símbolosnãoterminaisrecebidos.split("");
+        naoTerminais = símbolosnãoterminaisrecebidos.split("");
     }
 
     public String getNãoTerminais(){
         String str = "";
-        for ( String termin: nãoterminais) {
+        for ( String termin: naoTerminais) {
             str =  str + termin;
         }
         return str;

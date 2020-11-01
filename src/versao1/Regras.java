@@ -1,11 +1,15 @@
 
-package versao2;
+package versao1;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Regras {
-    String[][] matrizregras;
-    
-    public Regras(String[][] matrizderegrasinicial) {
-        this.matrizregras = matrizderegrasinicial;
-    }
-    
+      List<String> regraDireita ;
+      String variavel = "";
+
+      public Regras(String variavel, ArrayList<String> regra){
+            this.variavel = variavel;
+            this.regraDireita =  regra;
+      }
 }

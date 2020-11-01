@@ -1,2 +1,45 @@
-package versao1;public class App {
+package versao1;
+
+public class App {
+  public static void main(String[] args) {
+
+    String[][] matrizRegras = new String[10][2];
+
+    String simboloRaiz = "E";
+    String simbolosTerminais = "abc+*()";
+    String simbolosNaoTerminais = "IE";
+
+    matrizRegras[0][0] = "E";
+    matrizRegras[0][1] = "I";
+
+    matrizRegras[1][0] = "E";
+    matrizRegras[1][1] = "E*E";
+
+    matrizRegras[2][0] = "E";
+    matrizRegras[2][1] = "E+E";
+
+    matrizRegras[3][0] = "E";
+    matrizRegras[3][1] = "(E)";
+
+    matrizRegras[4][0] = "E";
+    matrizRegras[4][1] = "a";
+
+    matrizRegras[5][0] = "E";
+    matrizRegras[5][1] = "c";
+
+    matrizRegras[6][0] = "I";
+    matrizRegras[6][1] = "a";
+
+    matrizRegras[7][0] = "I";
+    matrizRegras[7][1] = "b";
+
+    matrizRegras[8][0] = "I";
+    matrizRegras[8][1] = "Ia";
+
+    matrizRegras[9][0] = "I";
+    matrizRegras[9][1] = "Ib";
+
+    GramaticaLivreDeContexto GLC = new GramaticaLivreDeContexto(simbolosTerminais, simbolosNaoTerminais,  matrizRegras, simboloRaiz);
+    GLC.gerarPalavras(10);
+  }
 }
