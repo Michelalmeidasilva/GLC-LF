@@ -1,5 +1,5 @@
 
-package gramatica;
+package main.gramatica;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package arquivo;
+package main.arquivo;
 
 import main.gramatica.GLC;
 

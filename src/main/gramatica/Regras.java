@@ -1,5 +1,5 @@
 
-package gramatica;
+package main.gramatica;
 
 public class Regras {
     String[][] matrizregras;
