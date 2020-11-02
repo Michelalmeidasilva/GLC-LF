@@ -11,6 +11,7 @@ import java.io.*;
 public class JsonFormatter {
 
   /**
+   * @author Michel Silva
    * Recebe um objeto gramatica para ser escrito
    * em JSON
    * @param gramatica
@@ -52,6 +53,7 @@ public class JsonFormatter {
   }
 
   /**
+   * @author Michel Silva
    * Le um caminho do usuario para leitura de arquivo
    * @param nome
    * @param diretorioAtual
